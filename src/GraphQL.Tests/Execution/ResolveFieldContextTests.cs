@@ -82,6 +82,16 @@ namespace GraphQL.Tests.Execution
         public void argument_returns_default_when_missing()
         {
             _context.GetArgument<string>("wat").ShouldBeNull();
+            _context.GetArgument<DateTime?>("null").ShouldBeNull();
+            _context.GetArgument<DateTime>("null").ShouldBe(default(DateTime));
+        }
+
+        [Fact]
+        public void argument_returns_default_when_null()
+        {
+            _context.Arguments["null"] = null;
+            _context.GetArgument<DateTime?>("null").ShouldBeNull();
+            _context.GetArgument<DateTime>("null").ShouldBe(default(DateTime));
         }
 
         [Fact]
